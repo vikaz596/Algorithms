@@ -1,0 +1,32 @@
+import java.util.Scanner;
+import java.math.BigInteger;
+
+/**
+* Created by VIKAS SINGH
+* On 14 JAN 2016 at 11:16PM
+*/
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        
+        int a1 = stdin.nextInt();
+        int b1 = stdin.nextInt();
+        int n = stdin.nextInt();
+        
+        BigInteger a = new BigInteger(a1+"");
+        BigInteger b = new BigInteger(b1+"");
+        BigInteger finalSum = new BigInteger("0");
+        
+        for(int i=2 ; i<n ; i++) {
+            finalSum = (b.multiply(b)).add(a);
+            a = b;
+            b = finalSum;
+        }    
+        
+        System.out.println(finalSum.toString());
+        
+        stdin.close();
+    }
+}
