@@ -1,4 +1,11 @@
+Package Dynamic-Programming;
+
 import java.util.Scanner;
+
+/**
+* Created by VIKAS SINGH
+* on 14 JAN 2016
+*/
 
 public class Solution {
 
