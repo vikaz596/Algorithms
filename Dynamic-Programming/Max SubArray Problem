@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        int testCases = stdin.nextInt();
+        for(int t=0 ; t<testCases ; t++) {
+            
+            int n = stdin.nextInt();
+            int arr[] = new int[n];
+            for(int i=0 ; i<n ; i++)
+                arr[i] = stdin.nextInt();
+            
+            // Continuous part max sum
+            int prevSum=0;
+            int sum=-1000000;
+            int temp = arr[0];
+            for(int i=0 ; i<n ; i++) {
+                prevSum = max(prevSum+arr[i],arr[i]);
+                if(prevSum>sum)
+                    sum = prevSum;
+                
+                if(temp<arr[i])
+                    temp = arr[i];
+            }
+            if(sum==0)
+                System.out.print(temp + " ");
+            else
+                System.out.print(sum + " ");
+            
+            // Non-Continuous Part max sum
+            sum=0;
+            temp=arr[0];
+            for(int i=0 ; i<n ; i++) {
+                if(sum+arr[i]>sum)
+                    sum = sum + arr[i];
+                if(temp<arr[i])
+                    temp = arr[i];
+            }
+            if(sum==0)
+                System.out.println(temp);
+            else
+                System.out.println(sum);
+        }
+    }
+    
+    public static int max(int a, int b) {
+        if(a>=b)
+            return a;
+        else
+            return b;
+    }
+}
