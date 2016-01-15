@@ -1,0 +1,17 @@
+declare fib_table as array; all values initialized to 0
+
+function fib_memo(n)
+   if (n = 0)
+      return 0
+   if (n = 1)
+      return 1
+
+   if (fib_table[n] == 0)
+     fib_table[n] = fib_memo(n-1) + fib_memo(n-2)
+
+   return fib_table[n]
+
+Be careful when choosing a default value for the memoization table. Zero is fine for this example,
+because the only time zero appears is for F_{0}, which is accounted for explicitly.
+If your function's range is all integers, you may have to use an auxiliary table to keep track of 
+whether a specific value has been computed.
