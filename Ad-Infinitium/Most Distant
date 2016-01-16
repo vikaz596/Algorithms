@@ -1,0 +1,71 @@
+Package algorithms.ad-infinitium;
+
+import java.util.Scanner;
+
+/**
+* Created by VIKAS SINGH
+* on 16 JAN 2016
+*/
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+        int n = stdin.nextInt();
+        
+        long arr[][] = new long[4][2];
+        
+        long x = 0;
+		long y = 0;
+		
+        for(int i=0 ; i<n ; i++) {
+			x = stdin.nextLong();
+			y = stdin.nextLong();
+			
+			if(x==0 && y>0){
+				if(arr[0][1]<y)
+					arr[0][1]=y;	
+			}
+			
+			else if(x>0 && y==0){
+				if(arr[1][0]<x)
+					arr[1][0]=x;	
+			}
+			else if(x==0 && y<0){
+				if(arr[2][1]>y)
+					arr[2][1]=y;	
+			}
+			else if(x<0 && y==0){
+				if(arr[3][0]>x)
+					arr[3][0]=x;	
+			}
+				
+		} 
+             
+        double dist = 0;
+        double max = 0;
+        for(int i=0 ; i<3 ; i++) {
+			for(int j=i+1 ; j<4 ; j++) {
+				if(arr[i][0] == 0 && arr[j][0] == 0)   // both points have x coordinate 0
+					dist = Math.abs(arr[j][1] - arr[i][1]);
+					
+				else if(arr[i][1] == 0 && arr[j][1] == 0) // both have y coordinate 0
+					dist = Math.abs(arr[j][0] - arr[i][0]);
+                
+				else if(arr[i][0] == 0)  // first point have x coordinate 0 and other point have y coordinate 0
+					dist = Math.sqrt(arr[i][1]*arr[i][1] + arr[j][0]*arr[j][0]);
+					
+                    
+				else // first point have y coordinate 0 and other point have x coordinate 0
+					dist = Math.sqrt(arr[i][0]*arr[i][0] + arr[j][1]*arr[j][1]);
+					
+                    
+				if(dist>max)
+					max = dist;
+				
+			}
+		}	
+        
+        System.out.printf("%.12f",max);
+    }
+}
