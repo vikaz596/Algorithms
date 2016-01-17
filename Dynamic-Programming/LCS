@@ -1,0 +1,75 @@
+package algorithms.dynamicprogramming;
+import java.util.Scanner;
+
+/**
+* created by VIKAS SINGH
+* on 17 JAN 2016
+*/
+
+public class Solution {
+    
+    public static void printLCS(int arr1[] , int arr2[] , int m, int n) {
+        int arr[][] = new int[m+1][n+1];
+        for(int i=0 ; i<=m ; i++) {
+            for(int j=0 ; j<=n ; j++) {
+                if(i==0 || j==0)
+                    arr[m][n] = 0;
+                
+                else if(arr1[i-1]==arr2[j-1])
+                    arr[i][j] = arr[i-1][j-1] + 1;
+                
+                else
+                    arr[i][j] = max(arr[i-1][j],arr[i][j-1]);
+            }
+        }
+        
+        // arr[m][n] is the answer of LCS Length Calculation, now start printing part
+        int index = arr[m][n];
+        int ans[] = new int[index];
+        int i = m;
+        int j = n;
+        while(i>0 && j>0) {
+            if(arr1[i-1] == arr2[j-1]){
+                ans[index-1] = arr2[j-1];
+                index--;
+                i--;
+                j--;
+            }
+            
+            else if(arr[i-1][j]>arr[i][j-1])
+                i--;
+            
+            else
+                j--;
+        }
+        
+        for(i=0 ; i<arr[m][n] ; i++)
+            System.out.println(ans[i] + " ");
+    }
+    
+    public static int max(int a, int b) {
+        if(a>=b)
+            return a;
+        else
+            return b;
+    }
+    
+    public static void main(String args[]) {
+        Scanner stdin = new Scanner(System.in);
+        int m = stdin.nextInt();
+        int n = stdin.nextInt();
+        
+        int arr1[] = new int[m];
+        int arr2[] = new int[n];
+        
+        for(int i=0 ; i<m ; i++)
+            arr1[i] = stdin.nextInt();
+        
+        for(int i=0 ; i<n ; i++)
+            arr2[i] = stdin.nextInt();
+        
+        printLCS(arr1,arr2,m,n);
+        
+        stdin.close();
+    }
+}
