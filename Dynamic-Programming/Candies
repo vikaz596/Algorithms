@@ -1,0 +1,44 @@
+package algorithms.dynamicprogramming;
+import java.util.Scanner;
+
+/**
+* created by VIKAS SINGH
+* on 16 JAN 2016
+*/
+
+public class Solution {
+    public static void main(String args[]) {
+        Scanner stdin = new Scanner(System.in);
+        
+        int n = stdin.nextInt();
+        int arr[] = new int[n];
+        
+        for(int i=0 ; i<n ; i++)
+            arr[i] = stdin.nextInt();
+        
+        int temp[] = new int[n];
+        for(int i=0 ; i<n ; i++) {
+            if(i==0) {
+                temp[i]=1;
+                continue;
+            }    
+            if(arr[i]>arr[i-1])
+                temp[i] = temp[i-1] + 1;
+            else
+                temp[i] = 1;
+        }
+        
+        // Now correcting mistakes
+        for(int i=n-1 ; i>0 ; i--) {
+            if(arr[i]<arr[i-1] && temp[i]>=temp[i-1]){
+                temp[i-1] = temp[i]+1; 
+            }
+        }
+        
+        long ans = 0;
+        for(int i=0 ; i<n ; i++)
+            ans = ans + temp[i];
+        
+        System.out.println(ans);
+    }
+}
