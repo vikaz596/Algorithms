@@ -1,0 +1,52 @@
+/**
+* created by VIKAS SINGH
+* on 31 JAN 2016
+* Task here is to generate all possible Strings of a String
+* Ex : ABC ACB BAC BCA CAB CBA
+*/
+
+import java.util.Scanner;
+
+public class Solution {
+	
+	public static void generatePermutation(int n) {
+		int arr[] = new int[n];
+		for(int i=0 ; i<n ; i++)
+			arr[i] = i+1;
+		
+		generatePermutation(arr,0,n-1);
+	}
+	
+	private static void generatePermutation(int arr[], int k, int n) {
+		if(k==n)
+			print(arr);
+		
+		else {
+			for(int i=k ; i<=n ; i++) {
+				swap(arr,i,k);
+				generatePermutation(arr,k+1,n);
+				swap(arr,i,k);
+			}
+		}
+	}
+
+	private static void swap(int arr[],int a, int b) {
+		int temp = arr[a];
+		arr[a] = arr[b];
+		arr[b] = temp;
+	}
+
+	private static void print(int arr[]) {
+		for(int i=0 ; i<arr.length ; i++)
+			System.out.print(arr[i]);
+		
+		System.out.print("\t");
+	}	
+
+	public static void main(String args[]) {
+		Scanner stdin = new Scanner(System.in);
+		int n = stdin.nextInt();
+		generatePermutation(n);
+		stdin.close();
+    }
+}
