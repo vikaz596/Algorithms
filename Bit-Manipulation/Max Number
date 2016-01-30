@@ -1,0 +1,77 @@
+/**
+* created by VIKAS SINGH
+* on 30 JAN 2016
+* Task here is to generate a max number using same number of 1's as in given number
+*/
+
+import java.util.Scanner;
+
+public class Solution {
+	
+	// Method to count significant length of a 32 bit number 
+	public static int getLength(int num) {
+		int check=1;
+		int count=0;
+		while(num>=check) {
+			count++;
+			check = check*2;
+		}
+		return count;
+	}
+	
+	// Method to print all the bits representation of a 32 bit number
+	public static void showBits(int num) {
+		int i = getLength(num)-1;
+		for( ; i>=0 ; i--) {
+			int temp1 = 1 << i;
+			int temp2 = num&temp1;
+			if(temp1 == temp2)
+				System.out.print("1");
+			else
+				System.out.print("0");
+		}
+		System.out.println("");
+	}
+	
+	// Method to count number of 1's in Binary representation of a number
+	public static int countOnes(int num) {
+		int count=0;
+		for(int i=31 ; i>=0 ; i--) {
+			int temp1 = 1 << i;
+			int temp2 = num&temp1;
+			if(temp1 == temp2)
+				count++;
+		}
+		return count;
+	}
+	
+	// This method returns max number using same number of 1's as in given number
+	public static long getMaxNumber(int num) {
+		int i = countOnes(num);
+		int power = getLength(num) - 1;
+		long maxNumber = 0;
+		while(i>0) {
+			maxNumber += 1*Math.pow(2,power);
+			i--;
+			power--;
+		}
+		return maxNumber;
+	}
+	
+	public static void main(String[] args) {
+        Scanner stdin = new Scanner(System.in);
+		int num = stdin.nextInt();
+		System.out.println("Printing number in binary :");
+		showBits(num);
+		System.out.println("Length : " + getLength(num));
+		System.out.println("Total number of 1's : " + countOnes(num));
+		
+		long x = getMaxNumber(num);
+		System.out.println("Max number using same number of 1's : " + x);
+		System.out.println("Printing number in binary :");
+		showBits((int)x);
+		System.out.println("Length : " + getLength((int)x));
+		System.out.println("Total number of 1's : " + countOnes((int)x));
+		stdin.close();
+    }
+}
