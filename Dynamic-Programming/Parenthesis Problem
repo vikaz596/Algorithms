@@ -1,0 +1,41 @@
+/**
+* created by VIKAS SINGH
+* on 31 JAN 2016
+* Task here is to print all possible parenthesis for a given number n
+* Eg : n=3, ()()() , ((())) , ()(()) , (()()) , (())()
+*/
+
+import java.util.Scanner;
+
+public class Solution {
+	
+	// Method header
+	// leftRemain and rightRemain are keeping track of how many parenthesis left for printing
+	// currentString is used to keep track of current printout in our recursion
+	public static void printParenthesis(int leftRemain, int rightRemain, String currentString) {
+		// check for base condition
+		if(rightRemain==0) { // now nothing is left to print
+			System.out.println(currentString);
+			return;
+		}	
+		
+		if(leftRemain>0) { // left parenthesis are remaining for printing
+		    // Choice 1 - print left parenthesis
+			printParenthesis(leftRemain-1,rightRemain,currentString+"(");
+			
+			// Choice 2 - print right parenthesis if valid
+			if(leftRemain<rightRemain)  // more left parenthesis are used than right parenthesis
+				printParenthesis(leftRemain,rightRemain-1,currentString+")");
+		}
+		
+		else
+			printParenthesis(leftRemain,rightRemain-1,currentString+")");
+	}
+	
+	public static void main(String args[]) {
+		Scanner stdin = new Scanner(System.in);
+		int n = stdin.nextInt();
+		printParenthesis(n,n,"");
+		stdin.close();
+	}
+}
