@@ -1,0 +1,54 @@
+/**
+* created by VIKAS SINGH
+* on 31 JAN 2016
+* Solution to Longest Increasing Subsequence (LIS) problem
+*/
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class Solution {
+	
+	// Method header
+	public static int LIS(int arr[]) {
+		int n = arr.length;
+		
+		// This array is used to store LIS length till that length
+		int size[] = new int[n];
+		Arrays.fill(size,1);
+		
+		// This String array stores the maxSequence LIS till that index
+		// And is not used but examples where you need to display LIS also then
+		// it will be used
+		String maxSequence[] = new String[n];
+		for(int i=0 ; i<n ; i++)
+			maxSequence[i] = i + " ";
+		
+		int maxLength = -1;
+		// i represent the index which we are checking for LIS
+		for(int i=1 ; i<n ; i++) {
+			// This loop is for checking prev LIS and merging
+			for(int j=0 ; j<i ; j++) {
+				if(arr[i]>arr[j] && size[j]<size[i]+1) {
+					size[i] = size[j] + 1;
+					maxSequence[i] += i + " ";
+				}
+				
+				if(maxLength<size[i])
+						maxLength = size[i];
+			}
+		}
+		
+		return maxLength;
+	}
+	public static void main(String args[]) {
+		Scanner stdin = new Scanner(System.in);
+		int n = stdin.nextInt();
+		int arr[] = new int[n];
+		
+		for(int i=0 ; i<n ; i++)
+			arr[i] = stdin.nextInt();
+		
+		System.out.println("Max LIS : " + LIS(arr));
+	}
+}
