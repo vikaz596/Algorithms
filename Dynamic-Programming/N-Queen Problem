@@ -1,0 +1,55 @@
+/**
+* created by VIKAS SINGH
+* on 31 JAN 2016
+* The famous N-Queen problem, need i say more ?
+*/
+
+import java.util.Scanner;
+
+public class Solution {
+	public static int count=0;
+	
+	// Method header
+	public static void placeQueens(int row ,int column[]) {
+		// It means all queens have been placed successfully add it as 1 valid configuration
+		if(row==column.length)
+			count++;	
+		
+		else {
+			// find valid column to place queen on this row
+			for(int col=0 ; col<column.length ; col++) {
+				if(checkValid(column,row,col)) {
+					column[row]=col;
+					placeQueens(row+1,column);
+				}
+			}
+		}
+	}
+	
+	public static boolean checkValid(int column[],int row1, int col1) {
+		for(int i=0 ; i<row1 ; i++) {
+			if(column[i]==col1) { // check no queen placed before has same column as this 1
+				return false;
+			}
+			
+			// here we are checking for diagonal attack of queen
+			int colDistance = Math.abs(column[i]-col1);
+			int rowDistance = row1 - i;
+			if(colDistance == rowDistance)
+				return false;
+		}
+		// if both above condition are false for all previous queens i.e for(i=0 ; i<row1 ; i++)
+		// then our queen can be placed at this row1 and col1
+		return true;
+	}
+	
+	public static void main(String args[]) {
+		Scanner stdin = new Scanner(System.in);
+		int n = stdin.nextInt();
+		int column[] = new int[n];
+		
+		// 0 is row on which we will place queen now & column is array that represent oour board
+		placeQueens(0 , column);
+		System.out.println(count);
+	}
+}
