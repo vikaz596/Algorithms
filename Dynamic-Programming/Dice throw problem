@@ -1,0 +1,46 @@
+/**
+* created by VIKAS SINGH
+* on 5 FEB 2016
+* For problem statement visit geeksforgeeks.org
+*/
+
+import java.util.Scanner;
+
+public class Solution {
+	
+	public static long diceThrow(int faces, int nDices, int k) {
+		// Create a table to store results of subproblems.  One extra 
+		// row and column are used for simpilicity (Number of dice
+		// is directly used as row index and sum is directly used
+		// as column index).  The entries in 0th row and 0th column
+		// are never used.
+		long table[][] = new long[nDices+1][k+1];
+		
+		// Table entries for only one dice
+		for (int j = 1; j <= faces && j <= k; j++)
+			table[1][j] = 1;
+		
+		// Fill rest of the entries in table using recursive relation
+		// i: number of dice, j: sum
+		for (int i = 2; i <= nDices; i++)
+			for (int j = 1; j <= k; j++)
+				for (int z = 1; z <= faces && z < j; z++)
+					table[i][j] += table[i-1][j-z];
+				
+		return table[nDices][k];		
+	}
+
+	public static void main(String args[]) {
+		Scanner stdin = new Scanner(System.in);
+		int testCases = stdin.nextInt();
+		for(int t=0 ; t<testCases ; t++) {
+			
+			int faces = stdin.nextInt();
+			int nDices = stdin.nextInt();
+			int k = stdin.nextInt();
+			
+			System.out.println(diceThrow(faces,nDices,k));	
+		}	
+		stdin.close();
+    }
+}
