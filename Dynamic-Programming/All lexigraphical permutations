@@ -1,0 +1,80 @@
+/**
+* created by VIKAS SINGH
+* on 5 FEB 2016
+* Task here to generate all lexigraphical permutation of a given String.
+* Ex : ABC ACB BAC BCA CAB CBA
+*/
+
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class Solution {
+
+	public static int check=0;
+	
+	public static void perm(char x[] , int k, int n, String ans[]) {
+        if(k==n) { 
+            ans[check] = String.valueOf(x);
+			check++;
+		}	
+            
+        
+        else {
+            for(int i=k ; i<=n ; i++) {
+                swap(x,i,k);
+                perm(x,k+1,n,ans);
+                swap(x,i,k);
+            }
+        }
+    }
+    
+	private static void swap(char arr[],int a, int b) {
+		char temp = arr[a];
+		arr[a] = arr[b];
+		arr[b] = temp;
+	}
+
+	private static void print(String arr[]) {
+		for(int i=0 ; i<arr.length ; i++)
+			System.out.print(arr[i] + " ");
+		
+		System.out.println("");
+	}    
+    
+	public static void main (String[] args) {
+		check=0;
+		Scanner stdin = new Scanner(System.in);
+		int testCases = stdin.nextInt();
+		String ans[] = null;
+		stdin.nextLine();
+		
+		for(int t=0 ; t<testCases ; t++) {
+		    
+		    String str = stdin.nextLine();
+		    
+		    if(str.length()==1) 
+				ans = new String[1];
+				
+			else if(str.length()==2) 
+		        ans = new String[2];
+				
+		    else if(str.length()==3) 
+		        ans = new String[6];
+				
+		    else if(str.length()==4)
+		        ans = new String[24];
+		    
+			else if(str.length()==5)  
+		        ans = new String[120];
+		        
+		    char x[] = str.toCharArray();
+			
+			
+		    int n = x.length-1;
+			check=0;
+		    perm(x,0,n,ans);
+			Arrays.sort(ans);
+			print(ans);		    
+		}
+	}
+}
