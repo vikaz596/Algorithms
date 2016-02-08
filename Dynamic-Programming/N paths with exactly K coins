@@ -1,0 +1,50 @@
+/**
+* created by VIKAS SINGH
+* on 9 FEB 2016
+*/
+
+import java.util.Scanner;
+public class Solution {
+	
+	public static int findPath(int arr[][], int i, int j, int k) {
+		if(k<0)
+			return 0;
+		
+		if(i<0 || j<0)
+			return 0;
+		
+		if(i==0 && j==0 && k==0)
+			return 1;
+		
+		if(i==0 && j==0)
+			return 0;
+		
+		else {
+			if(i==0)
+				return findPath(arr,i,j-1,k-arr[i][j-1]);
+			else if(j==0)
+				return findPath(arr,i-1,j,k-arr[i-1][j]);
+			else
+				return findPath(arr,i-1,j,k-arr[i-1][j]) + findPath(arr,i,j-1,k-arr[i][j-1]);
+		}	
+	}
+	
+	public static void main(String[] args) {
+		Scanner stdin = new Scanner(System.in);
+		int testCases = stdin.nextInt();
+		for(int t=0 ; t<testCases ; t++) {
+			int k = stdin.nextInt();
+			int n = stdin.nextInt();
+			
+			int arr[][] = new int[n+1][n+1];
+			for(int i=0 ; i<n ; i++) {
+				for(int j=0 ; j<n ; j++) {
+					arr[i][j] = stdin.nextInt();
+				}
+			}
+			
+			System.out.println(findPath(arr,n-1,n-1,k-arr[n-1][n-1]));
+		}	
+		stdin.close();
+	}
+}
